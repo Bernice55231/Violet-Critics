@@ -1,0 +1,86 @@
+<head>
+    <h1>Violet Critics</h1> 
+    {{#if user}}
+        <div id="username">
+            {{user.username}} 
+            <a href="/logout">Logged Out</a>
+        </div>
+        <div id="starlist">
+            <a href="/starlists">StarList</a>
+        </div>
+        <a href="/" id="home">
+            <div>Home</div>
+        </a>
+    {{else}}
+        <a href="/login">
+            <button id="user">Login</button>
+        </a>
+    {{/if}}
+</head>
+
+<div class="details">
+    <div class="detail-image">
+        <div class="image2">
+            <img loading="lazy" class="poster" src={{movie.poster}}>
+        </div>
+    </div>
+    <div class="description">
+        <section class="head-poster">
+            <h2>
+                {{movie.name}}
+            </h2>
+            <div class="facts">
+                <span>PG | </span>
+                <span>{{movie.genre}} | </span>
+                <span>{{movie.time}} min</span>
+            </div>
+            <div class="header info">
+                <h3>Overview</h3>
+                <p>{{movie.overview}}</p>
+                <p><h3>Director: </h3>{{movie.directors}}</p>
+                <p><h3>Actor: </h3>{{movie.main_actors}}</p>
+                <p><h3>Rating: </h3>{{movie.rating}}</p>
+                {{#if user}}
+                    {{#if starred}}
+                        <button id="star">Starred</button>
+                    {{else}}
+                        <button id="star" onclick="saveToMovieList()">Star</button>
+                    {{/if}}
+                {{/if}}
+            </div>
+        </section>
+    </div>
+</div><br>
+
+<div class="review">
+    <h3>Reviews:</h3>
+    {{#if user}}
+        <form method="POST" action="/movies/reviewx/{{movie.slug}}">
+            <input type="text" id="user-review" name="review" value="">
+            <input type="submit" value="submit" style="font-size:20px" onclick="saveReview()">
+        </form> 
+    {{/if}}
+    {{#each movie.reviews as |r|}}
+        <div class="review-item">
+            <span>{{r.user.username}} : {{r.comments}}</span>
+        </div>
+    {{/each}}
+
+</div>
+
+<script type="text/javascript">
+    function saveToMovieList() {
+        const id = "{{movie.id}}";
+        console.log("You clicked button.");
+        axios.post('/movies/star', {
+            mv_id: id
+        })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+        document.getElementById("star").textContent = "Starred";
+    }
+</script>

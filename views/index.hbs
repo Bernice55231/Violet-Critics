@@ -1,0 +1,65 @@
+<head>
+    <h1>Violet Critics</h1> 
+    {{#if user}}
+        <div id="username">
+            {{user}} 
+            <a href="/logout">Logged Out</a>
+        </div>
+        <div id="starlist">
+            <a href="/starlists">StarList</a>
+        </div>
+    {{else}}
+        <a href="/login">
+            <button id="user">Login</button>
+        </a>
+    {{/if}}
+</head>
+
+<div>
+    <form method="GET" action="search">
+        <input type="text" name="mvname" value="">
+        <input type="submit" value="search" style="font-size:20px">
+    </form> 
+    <br>
+    <nav id="bar">Trending | Popular | Recommend</nav>
+    <div class="mvbar">   
+        {{#each trendings as |t|}}
+            <div class="grid-item">
+                <div class="image">
+                    <a href="/movies/{{t.slug}}" title={{t.name}}>
+                        <img loading="lazy" class="poster" src={{t.poster}}>
+                    </a>
+                </div>
+                <div class="content">
+                    <a href="/movies/{{t.slug}}" title={{t.name}}>
+                        <p>
+                            {{t.name}}
+                        </p>
+                    </a>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
+
+<div class="display">
+    All Movie List<br>
+    <div class="mvbar2">  
+        {{#each movies as |m|}} 
+            <div class="grid-item">
+                <div class="image">
+                    <a href="/movies/{{m.slug}}" title={{m.name}}>
+                        <img loading="lazy" class="poster" src={{m.poster}}>
+                    </a>
+                </div>
+                <div class="content">
+                    <a href="/movies/{{m.slug}}" title={{m.name}}>
+                        <p>
+                            {{m.name}}
+                        </p>
+                    </a>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
