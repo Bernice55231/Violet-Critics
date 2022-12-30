@@ -1,4 +1,4 @@
-# [Violet Critics] (http://www.violetcritics.com/)
+# [Violet Critics](http://www.violetcritics.com/)
 
 ## Overview
 
